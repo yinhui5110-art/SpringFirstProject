@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+		<!--  Spring이 생명주기를 관리하도록 객체를 등록 ==> Bean등록 총 3가지가 있다-->
+		<!-- 
+			* root-context.xml
+			서버가 구동되면서 새팅되어야하는(Bean등록) 내용들을 작성(DB접속, 트랜잭션처리, 외부 모듈 연결...)
+			서바가 구동과 동시에 wdb.xml파일을 거쳐서 로딩되는 문서 == preloading
+		
+		 -->
+		<!-- 내가 어떤 class를 Bean으로 정할것인지 -->
+		<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+			<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+			<property name="username" value="C##HY" />
+			<property name="password" value="HY" />
+		</bean>
+	<!-- 
+		DataSource.dataSource = new BasicDataSource();
+		dataSource.setDriverClassName("oracle.jdbc.driver.OracleDriver");
+		dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:XE");
+		dataSoure.setUsername("C##HY");
+		dataSource.setPassword("HY");
+	
+	 -->	
+		
+		<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+			<property name="configLocation" value="classpath:mybatis-config.xml" />
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		
+		<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
+			<constructor-arg ref="sqlSessionFactory" />
+		</bean>
+		<!-- 
+			SqlSession sqlSession = new SqlSessionTemplate(sqlSessionFactory);
+		 -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+</beans>
