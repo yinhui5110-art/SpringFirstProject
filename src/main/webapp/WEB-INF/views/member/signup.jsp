@@ -30,6 +30,32 @@
     <jsp:include page="../include/header.jsp" />
     <!-- 현재 디렉토리에서 상위로 올라 갈려면 ../ 하나 올라가는 것이다 -->
 
+	<script>
+		function idCheck(){
+			//console.log(123);
+			
+			// 아이디 중복체크 구현하기
+			// 사용자가 입력한 아이디값
+			const id = document.querySelector('#singup-form>#userId').value;
+			//console.log(id);
+			if(id.length >= 5){
+				
+				fetch(`/spring/checkId?id=\${id}`)
+						.then(response => response.json())
+						.then(data => {
+						 //console.log(data);
+						 
+						 if(data.result === 'N'){
+							 $('#msg').css('font-size', '12px').css('color','red').text('이미 존재하는 아이디입니다.');
+						 }else{
+							 $('#msg').css('font-size', '12px').css('color','green').text('사용 가능한 아이디입니다.');
+						 }
+						 
+					});
+			}
+			
+		}
+	</script>
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -37,9 +63,12 @@
             <br>
 
             <form action="members" method="post">
-                <div class="form-group">
+                <div class="form-group" id="singup-form">
                     <label for="userId">* ID : </label>
-                    <input type="text" class="form-control" id="userId" placeholder="Please Enter ID" name="userId" required> <br>
+                    <input type="text" class="form-control" id="userId" placeholder="Please Enter ID" name="userId" required
+                    		onkeyup="idCheck();"> <br>
+                   <label id="msg"></label>
+                   
                     <!--  커멘드 객체 방식으로 -->
 
                     <label for="userPwd">* Password : </label>

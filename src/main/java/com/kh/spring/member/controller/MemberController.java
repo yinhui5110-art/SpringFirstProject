@@ -1,13 +1,15 @@
 package com.kh.spring.member.controller;
 
-import java.io.UnsupportedEncodingException;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.spring.member.model.dto.MemberDto;
@@ -27,7 +29,8 @@ public class MemberController {
 	//}
 	
 	// 1. 값뽑기
-	// 2. 가공
+	// 2. 가공 (서블릿에서 값가공한다)
+	// 3. 컨트롤러는 중간다리 역할이다
 	/*
 	@RequestMapping("login")
 	public void login() {
@@ -198,13 +201,45 @@ public class MemberController {
 		return "main";
 	}
 	
+	@GetMapping("mypage")
+	public String mypage() {
+		return "member/mypage";
+	}
 	
+	@PostMapping("members/{userId}") // 요청값이 무엇이 들어 올지 모르기 떄문에  {}을 사용한다
+	public String update(MemberDto member,@PathVariable(name="userId") String userId, HttpSession session) {
+		
+		//log.info("URL에 포함된 id값 : {} / 실제 넘어온 DTO : {}", userId, member);
+		/*
+		 * Best Practice
+		 * 
+		 * 컨트롤러에서 세션관리를 담당
+		 * 서비스에서 HttpSession이 필요하다면 메소드 호출 시 인자로 전달한다
+		 */
+		memberService.update(member, session);
+		
+		return "redirect:/mypage"; //상대경로 방식을 쓸때 조심해야한다
+		
+	}
 	
+	@PostMapping("members/{userId}/delete")
+	public String delete(@RequestParam(value="userPwd")String userPwd,
+						 @PathVariable(value="userId")String userId,
+						 HttpSession session) {
+		
+		memberService.delete(userId, userPwd, session);
+		
+		
+		return "redirect:/";
+	}
 	
-	
-	
-	
-	
+	@ResponseBody
+	@GetMapping(value="checkId", produces="application/json;charset=UTF-8")
+	public Map<String, String> checkId(@RequestParam(value="id")String id){
+		return Map.of("result",memberService.checkId(id));
+		
+	}
+
 	
 	
 	
