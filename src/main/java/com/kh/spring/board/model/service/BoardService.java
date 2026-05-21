@@ -105,6 +105,7 @@ public class BoardService {
 			sb.append((int)(Math.random()*900)+ 100);
 			sb.append(upfile.getOriginalFilename().substring(upfile.getOriginalFilename().lastIndexOf(".")));
 			
+			// 파일 업로드
 			ServletContext application = session.getServletContext();
 			String savePath = application.getRealPath("/resources/files/");
 			
@@ -146,6 +147,22 @@ public class BoardService {
 		board.setBoardContent(boardContent);
 	
 	}
+	
+	//public BoardDto findByBoardNo(Long boardNo) {
+		
+	//	if(boardNo < 1 || boardNo == null) {
+		//	throw new InvalidParameterException("유효하지 않은 요청입니다.");
+	//	}
+	//	int result = boardMapper.increaseCount(boardNo);
+	//	
+	//	if(result != 1 ) {
+	//		throw new InvalidParameterException("잘못된 요청입니다.");
+	//	}
+	//	BoardDto board = boardMapper.findByBoardNo(boardNo);
+	//}
+	
+	
+	
 
 
 	public int count() {

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,7 +57,7 @@ public class BaordController {
 	
 	@PostMapping
 	public String save(BoardDto board, MultipartFile upfile, HttpSession session) {
-		log.info("게시글 정보 : {}, 첨부파일 정보 : {}", board, upfile);
+		//log.info("게시글 정보 : {}, 첨부파일 정보 : {}", board, upfile);
 		// 첨부파일의 존재 유무
 		//MultipartFile객체의 fileName필드값으로 확인해야한다
 		/*
@@ -67,10 +68,18 @@ public class BaordController {
 		boardService.save(board, upfile, session);
 		return "redirect:boards";
 	}
-	
-	
-	
-	
+	/*
+	@GetMapping("/{id}")
+	public ModelAndView toDetail(@PathVariable(value="id") Long boardNo,
+									ModelAndView mv) {
+		
+		boardService.findByBoardNo(boardNo);
+		
+		mv.setViewName("board/detail");
+		return mv;
+		
+	}
+	*/
 	
 	
 	

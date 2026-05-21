@@ -74,7 +74,7 @@
                 <tbody>
                  
                  <script>
-                 	function toDetaol(){
+                 	function toDetail(boardNo){
                  		location.href = `boards/\${boardNo}`;
                  	}
                  </script>
@@ -82,21 +82,21 @@
                  
                  <c:choose>
                  <c:when test="${not empty map.boards }">
-                 <c:forEach var="board" items="${ map.boards }">
-                    <tr onclick="toDetail(${board.boardNo});">
-                        <td>${baord.boardNo}</td>
-                        <td>${board.boardTitle}</td>
-                        <td>${board.boardWriter}</td>
-                        <td>${board.count}</td>
-                        <td>${board.createDate}</td>
+                 	<c:forEach var="board" items="${ map.boards }">
+                    	<tr onclick="toDetail(${board.boardNo});">
+	                        
+	                        <td>${baord.boardNo}</td>
+	                        <td>${board.boardTitle}</td>
+	                        <td>${board.boardWriter}</td>
+	                        <td>${board.count}</td>
+	                        <td>${board.createDate}</td>
                         <td>
                         <c:if test="${not empty board.changeName}">
-                        💌
-                        </c:if>
-                        </td>
-                    </tr>
-                    
-                    </c:forEach>
+                       			 💌
+                      		  </c:if>
+                       		 </td>
+                    		</tr>
+                    	</c:forEach>
                     </c:when>
                     <c:otherwise>
                     	<tr>
@@ -114,10 +114,8 @@
                     <li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
                    
                    
-                   
-                   
                    <c:forEach var="num" begin="${map.pi.startPage}" end="${map.pi.endPage}">
-                    <li class="page-item"><a class="page-link" href="boards?page=${num}">${num}</a></li>
+                   	 <li class="page-item"><a class="page-link" href="boards?page=${num}">${num}</a></li>
                    </c:forEach>
                    
                     <li class="page-item"><a class="page-link" href="#">다음</a></li>

@@ -59,7 +59,7 @@
 			id="transactionManager">
 			<property name="dataSource" ref="dataSource"/>
 			</bean>	
-		
+		<!-- 애노테이션 활성화! <- 이것이 핵심이다!! -->
 		<tx:annotation-driven transaction-manager="transactionManager" />
 		
 		

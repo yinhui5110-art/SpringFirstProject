@@ -10,9 +10,14 @@ import com.kh.spring.board.model.dto.BoardDto;
 @Mapper
 public interface BoardMapper {
 	int selectTotalCount();
+	
 	List<BoardDto> findAll(RowBounds rb);
 	
 	int save(BoardDto board);
+	
+	int increaseCount(Long boardNo);
+	
+	BoardDto findByBoardNo(Long boardNo);
 	
 
 }

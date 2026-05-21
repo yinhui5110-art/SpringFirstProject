@@ -12,16 +12,22 @@
   		WHERE
   				STATUS = 'Y'
   	</select>
-  
-  	<select id="findAll"
-  			resultType="com.kh.spring.board.model.dto.BoardDto">
-  		SELECT
+  	
+  	<sql id="boardColumn">
+  	SELECT
   				BOARD_NO
   			 , BOARD_TITLE
   			 , BOARD_WRITER
   			 , COUNT
   			 , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD')as createDate
   			 , CHANGE_NAME
+  	</sql>
+  	
+  	
+  	<select id="findAll"
+  			resultType="com.kh.spring.board.model.dto.BoardDto">
+  		<include refid="boardColumn"/>
+  		
   		FROM
   				BOARD
   		WHERE
@@ -52,7 +58,32 @@
 				  	
   	</insert>
   	
+  	<update id="increaseCount">
+  		UPDATE
+  				BOARD
+  		SET
+  				COUNT = COUNT + 1
+  		WHERE
+  				BOARD_NO = #{boardNo}
+  		AND
+  				STATUS = 'Y'						
   	
+  	</update>
+  	
+  	<select id="findByBoardNo"
+  				resultType="com.kh.spring.board.model.dto.BaordDto">
+  			<include refid="boardColumn"/>
+  					, BOARD_CONTENT
+  					, ORIGIN_NAME
+  				FROM
+  						BOARD
+  				WHERE
+  						STATUS = 'Y'
+  				AND
+  					BOARD_NO = #{boardNo}					
+  					
+  		
+  				</select>
   	
   	
   	
